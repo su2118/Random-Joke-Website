@@ -6,24 +6,29 @@ const mysql = require('mysql2/promise');
   const RAW_URL = 'https://raw.githubusercontent.com/15Dkatz/official_joke_api/master/jokes/index.json';
   const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
 
-  try {
+  try 
+  {
     const res = await fetch(RAW_URL);
+    if(!res.ok)
+    {
+      throw new Error('Failed to download Joke JSON: '+res.statusText);
+    }
     const jokes = await res.json();
 
     const conn = await mysql.createConnection(
-        {
-            host: DB_HOST,
-            port: DB_PORT,
-            user: DB_USER,
-            password: DB_PASSWORD
-        }
-    );
+    {
+      host: DB_HOST,
+      port: DB_PORT,
+      user: DB_USER,
+      password: DB_PASSWORD
+    });
 
     await conn.query(`CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\`;`);
     await conn.changeUser({ database: DB_NAME });
 
     await conn.query(`
-      CREATE TABLE IF NOT EXISTS jokes (
+      CREATE TABLE IF NOT EXISTS jokes 
+      (
         id INT AUTO_INCREMENT PRIMARY KEY,
         type VARCHAR(100),
         setup TEXT NOT NULL,
