@@ -128,12 +128,15 @@ Click on the joke setup to reveal the punchline, then click again for the next j
 ## Project Structure
 
 ```text
-├── app.js # Main Express server
-├── import_jokes_mysql.js # Script to import jokes JSON into MySQL
-├── public/ # Frontend HTML, CSS, JS
-├── package.json # Node.js dependencies
-├── .env.example # Sample environment variables
-└── `README.md`
+project-root/
+├── server.js              # Node.js + Express server
+├── import_jokes_mysql.js  # Script to import jokes
+├── package.json
+├── .env
+└── public/
+    ├── index.html
+    ├── styles.css
+    └── app.js             # Client-side JS
 ```
 
 ## Notes
